@@ -11,8 +11,8 @@
 // the below options are just to allow easy customization of the low-hanging
 // fruit.
 
-//~ @f4_features 4coder Fleury Feature/Option List
 
+//~ @f4_features 4coder Fleury Feature/Option List
 //- @f4_lang_intro Multi-Language Support
 //
 // This custom layer has been tweaked to allow for better multi-language support

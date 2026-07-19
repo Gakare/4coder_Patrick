@@ -45,7 +45,7 @@ C4_RenderCursorSymbolThingy(Application_Links *app, Rect_f32 rect,
         draw_rectangle(app, start_top, roundness, color);
         draw_rectangle(app, start_side, roundness, color);
         
-        // draw_rectangle(app, start_bottom, start_color);
+        //draw_rectangle(app, start_bottom, start_color);
     }
     else if(type == cursor_close_range)
 	{
