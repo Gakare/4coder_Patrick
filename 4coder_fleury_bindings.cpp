@@ -77,11 +77,18 @@ CUSTOM_DOC("go to insert mode") {
   active_color_table.arrays[defcolor_margin_active].vals[0] = 0xff6c3a5c;
 }
 
+// NOTE: The normal mode will be its own seperate mapping from the existing 3 and insert
 function void SetNormalModeBindings(Mapping *mapping) {
     MappingScope();
     SelectMapping(mapping);
 
     SelectMap(mapid_normal);
+    BindCore(fleury_startup, CoreCode_Startup);
+    BindCore(default_try_exit, CoreCode_TryExit);
+    Bind(exit_4coder, KeyCode_F4, KeyCode_Alt);
+    BindMouseWheel(mouse_wheel_scroll);
+    BindMouseWheel(mouse_wheel_change_face_size, KeyCode_Control);
+
     Bind(go_to_insert_mode, KeyCode_I);
     // Movement
     Bind(move_up,                KeyCode_N);
@@ -115,10 +122,9 @@ function void SetNormalModeBindings(Mapping *mapping) {
     Bind(kill_buffer,              KeyCode_Delete, KeyCode_Control, KeyCode_Shift);
     Bind(delete_char,              KeyCode_X);
     Bind(f4_delete_token_boundary, KeyCode_X, KeyCode_Control);
-    Bind(cut,                      KeyCode_X, KeyCode_Control, KeyCode_Shift);
     Bind(f4_delete_alpha_numeric_or_camel_boundary, KeyCode_X, KeyCode_Alt);
-    Bind(snipe_forward_whitespace_or_token_boundary,
-            KeyCode_X, KeyCode_Alt, KeyCode_Shift);
+    Bind(cut,                      KeyCode_X, KeyCode_Control, KeyCode_Shift);
+    Bind(snipe_forward_whitespace_or_token_boundary, KeyCode_X, KeyCode_Alt, KeyCode_Shift);
 
     // Search and Replace
     Bind(search,                      KeyCode_F);
@@ -166,6 +172,7 @@ function void SetNormalModeBindings(Mapping *mapping) {
     Bind(if_read_only_goto_position_same_panel, KeyCode_Return, KeyCode_Shift);
 
     Bind(view_jump_list_with_lister,  KeyCode_Period);
+    Bind(jump_to_last_point,          KeyCode_J);
 
     // Command Lister
     Bind(command_lister, KeyCode_Semicolon);
@@ -174,7 +181,6 @@ function void SetNormalModeBindings(Mapping *mapping) {
 CUSTOM_COMMAND_SIG(go_to_normal_mode)
 CUSTOM_DOC("go to normal mode") {
   set_current_mapid(app, mapid_normal);
-  SetNormalModeBindings(&framework_mapping);
 
   active_color_table.arrays[defcolor_cursor].vals[0] = 0xffc1ae7c;
   active_color_table.arrays[defcolor_at_cursor].vals[0] = 0xffc1ae7c;
@@ -214,7 +220,6 @@ function void F4_SetAbsolutelyNecessaryBindings(Mapping *mapping) {
   BindCore(click_set_cursor_and_mark, CoreCode_ClickActivateView);
   BindMouseMove(click_set_cursor_if_lbutton);
 
-
   SelectMap(code_map_id);
   ParentMap(file_map_id);
   BindTextInput(fleury_write_text_and_auto_indent);
@@ -222,7 +227,7 @@ function void F4_SetAbsolutelyNecessaryBindings(Mapping *mapping) {
   BindMouse(f4_lego_click_store_token_2, MouseCode_Middle);
 
   SelectMap(mapid_normal);
-  ParentMap(file_map_id);
+  SetNormalModeBindings(mapping);
 
   SelectMap(mapid_insert);
   ParentMap(code_map_id);
