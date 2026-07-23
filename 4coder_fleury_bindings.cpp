@@ -77,107 +77,6 @@ CUSTOM_DOC("go to insert mode") {
   active_color_table.arrays[defcolor_margin_active].vals[0] = 0xff6c3a5c;
 }
 
-// NOTE: The normal mode will be its own seperate mapping from the existing 3 and insert
-function void SetNormalModeBindings(Mapping *mapping) {
-    MappingScope();
-    SelectMapping(mapping);
-
-    SelectMap(mapid_normal);
-    BindCore(fleury_startup, CoreCode_Startup);
-    BindCore(default_try_exit, CoreCode_TryExit);
-    Bind(exit_4coder, KeyCode_F4, KeyCode_Alt);
-    BindMouseWheel(mouse_wheel_scroll);
-    BindMouseWheel(mouse_wheel_change_face_size, KeyCode_Control);
-
-    Bind(go_to_insert_mode, KeyCode_I);
-    // Movement
-    Bind(move_up,                KeyCode_N);
-    Bind(goto_prev_jump,         KeyCode_N, KeyCode_Alt);
-    Bind(move_line_up,           KeyCode_N, KeyCode_Alt, KeyCode_Shift);
-    Bind(f4_move_up_token_occurrence, KeyCode_N, KeyCode_Control, KeyCode_Alt);
-    Bind(f4_move_to_prev_divider_comment, KeyCode_N, KeyCode_Control, KeyCode_Shift);
-
-    Bind(move_down,              KeyCode_T);
-    Bind(goto_next_jump,         KeyCode_T, KeyCode_Alt);
-    Bind(move_line_down,         KeyCode_T, KeyCode_Alt, KeyCode_Shift);
-    Bind(f4_move_down_token_occurrence, KeyCode_T, KeyCode_Control, KeyCode_Alt);
-    Bind(f4_move_to_prev_divider_comment, KeyCode_T,
-            KeyCode_Control, KeyCode_Shift);
-
-    Bind(move_left,              KeyCode_H);
-    Bind(f4_move_left_token_boundary, KeyCode_H, KeyCode_Control);
-    Bind(move_left_alpha_numeric_or_camel_boundary, KeyCode_H, KeyCode_Alt);
-
-    Bind(move_right,                                 KeyCode_S);
-    Bind(f4_move_right_token_boundary,               KeyCode_S, KeyCode_Control);
-    Bind(move_right_alpha_numeric_or_camel_boundary, KeyCode_S, KeyCode_Alt);
-
-    // Misc movement
-    Bind(seek_end_of_line,       KeyCode_E);
-    Bind(center_view,            KeyCode_E, KeyCode_Control);
-    Bind(left_adjust_view,       KeyCode_E, KeyCode_Control, KeyCode_Shift);
-    Bind(seek_beginning_of_line, KeyCode_B);
-
-    // Deleting
-    Bind(kill_buffer,              KeyCode_Delete, KeyCode_Control, KeyCode_Shift);
-    Bind(delete_char,              KeyCode_X);
-    Bind(f4_delete_token_boundary, KeyCode_X, KeyCode_Control);
-    Bind(f4_delete_alpha_numeric_or_camel_boundary, KeyCode_X, KeyCode_Alt);
-    Bind(cut,                      KeyCode_X, KeyCode_Control, KeyCode_Shift);
-    Bind(snipe_forward_whitespace_or_token_boundary, KeyCode_X, KeyCode_Alt, KeyCode_Shift);
-
-    // Search and Replace
-    Bind(search,                      KeyCode_F);
-    Bind(reverse_search,              KeyCode_F, KeyCode_Shift);
-    Bind(replace_in_range,            KeyCode_R);
-    Bind(list_all_locations,          KeyCode_ForwardSlash);
-    Bind(list_all_substring_locations_case_insensitive, KeyCode_ForwardSlash, KeyCode_Alt);
-    Bind(query_replace,               KeyCode_Q);
-    Bind(query_replace_identifier,    KeyCode_Q, KeyCode_Control, KeyCode_Shift);
-    Bind(query_replace_selection,     KeyCode_Q, KeyCode_Alt);
-    Bind(search_identifier,           KeyCode_T, KeyCode_Control);
-
-    Bind(list_all_locations_of_selection,  KeyCode_L);
-    Bind(goto_line,                        KeyCode_L, KeyCode_Control);
-    Bind(snippet_lister,                   KeyCode_L, KeyCode_Control, KeyCode_Shift);
-    Bind(list_all_locations_of_identifier, KeyCode_L, KeyCode_Alt);
-    Bind(project_command_lister,           KeyCode_L, KeyCode_Alt, KeyCode_Shift);
-
-    // Copy and Paste
-    Bind(copy,                        KeyCode_C);
-    Bind(duplicate_line,              KeyCode_C, KeyCode_Control);
-    Bind(paste_and_indent,            KeyCode_V);
-    Bind(paste_next_and_indent,       KeyCode_V, KeyCode_Shift);
-
-    // Cursor
-    Bind(cursor_mark_swap,            KeyCode_M);
-    Bind(set_mark,                    KeyCode_Space);
-
-    // Opening
-    Bind(reopen,                      KeyCode_O);
-
-    // Saving
-    Bind(save,                        KeyCode_End);
-    Bind(save_all_dirty_buffers,      KeyCode_End, KeyCode_Control);
-    Bind(save_to_query,               KeyCode_End, KeyCode_Control, KeyCode_Shift);
-
-    // Undo and Redo
-    Bind(undo,                        KeyCode_Z);
-    Bind(redo,                        KeyCode_Y);
-
-    Bind(view_buffer_other_panel,     KeyCode_1, KeyCode_Control);
-    Bind(swap_panels,                 KeyCode_2, KeyCode_Control);
-
-    Bind(if_read_only_goto_position,  KeyCode_Return);
-    Bind(if_read_only_goto_position_same_panel, KeyCode_Return, KeyCode_Shift);
-
-    Bind(view_jump_list_with_lister,  KeyCode_Period);
-    Bind(jump_to_last_point,          KeyCode_J);
-
-    // Command Lister
-    Bind(command_lister, KeyCode_Semicolon);
-};
-
 CUSTOM_COMMAND_SIG(go_to_normal_mode)
 CUSTOM_DOC("go to normal mode") {
   set_current_mapid(app, mapid_normal);
@@ -205,6 +104,14 @@ function void F4_SetAbsolutelyNecessaryBindings(Mapping *mapping) {
   MappingScope();
   SelectMapping(mapping);
 
+  SelectMap(mapid_normal);
+  BindCore(fleury_startup, CoreCode_Startup);
+  BindCore(default_try_exit, CoreCode_TryExit);
+  Bind(exit_4coder, KeyCode_F4, KeyCode_Alt);
+  BindMouseWheel(mouse_wheel_scroll);
+  BindMouseWheel(mouse_wheel_change_face_size, KeyCode_Control);
+  Bind(go_to_insert_mode, KeyCode_I);
+
   SelectMap(global_map_id);
   BindCore(fleury_startup, CoreCode_Startup);
   BindCore(default_try_exit, CoreCode_TryExit);
@@ -225,9 +132,6 @@ function void F4_SetAbsolutelyNecessaryBindings(Mapping *mapping) {
   BindTextInput(fleury_write_text_and_auto_indent);
   BindMouse(f4_lego_click_store_token_1, MouseCode_Right);
   BindMouse(f4_lego_click_store_token_2, MouseCode_Middle);
-
-  SelectMap(mapid_normal);
-  SetNormalModeBindings(mapping);
 
   SelectMap(mapid_insert);
   ParentMap(code_map_id);
@@ -253,9 +157,6 @@ function void F4_SetDefaultBindings(Mapping *mapping) {
   String_ID global_map_id = vars_save_string_lit("keys_global");
   String_ID file_map_id = vars_save_string_lit("keys_file");
   String_ID code_map_id = vars_save_string_lit("keys_code");
-
-  mapid_normal = vars_save_string_lit("mapid_normal");
-  mapid_insert = vars_save_string_lit("mapid_insert");
 
   MappingScope();
   SelectMapping(mapping);
