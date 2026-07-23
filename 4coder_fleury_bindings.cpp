@@ -308,3 +308,13 @@ function void F4_SetDefaultBindings(Mapping *mapping) {
   Bind(open_file_in_quotes, KeyCode_1, KeyCode_Alt);
   Bind(open_matching_file_cpp, KeyCode_2, KeyCode_Alt);
 }
+
+CUSTOM_COMMAND_SIG(binding_reload)
+CUSTOM_DOC("Reloads keybinds") {
+    String_Const_u8 bindings_file = string_u8_litexpr("bindings.4coder");
+    if(!dynamic_binding_load_from_file(app, &framework_mapping, bindings_file))
+    {
+        F4_SetDefaultBindings(&framework_mapping);
+    }
+    F4_SetAbsolutelyNecessaryBindings(&framework_mapping);
+}
