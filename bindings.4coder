@@ -272,8 +272,8 @@ keys_normal = {
     { "if_read_only_goto_position_same_panel", "Return", "Shift" },
 
     { "view_jump_list_with_lister",  "Period" },
-    //{ "f4_search_for_definition__project_wide", "J", "Control" },
-    //{ "f4_search_for_definition__current_file", "J", "Control", "Shift" },
+    { "f4_search_for_definition__project_wide", "J", "Control" },
+    { "f4_search_for_definition__current_file", "J", "Control", "Shift" },
     { "jump_to_last_point",          "J" },
 
     // Compilation
@@ -283,7 +283,10 @@ keys_normal = {
     // Command Lister
     { "command_lister", "Semicolon" },
 
-    // NOTE (gakare): Go to Def
+    // Go to Def
     { "f4_go_to_definition", "Return" },
     { "f4_go_to_definition_same_panel", "Return", "Shift" },
+
+    // Reload bindings
+    { "binding_reload", "R", "Control", "Shift" },
 };
